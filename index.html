@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UAE Renewable Energy Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #fff;
+    }
+
+    #chartContainer {
+      width: 700px;
+      height: 400px;
+      margin-bottom: 30px;
+    }
+
+    #sliderContainer {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    #yearLabel {
+      font-size: 30px;
+      font-weight: bold;
+      color: #43853b;
+      min-width: 150px;
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 400px;
+      height: 20px;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    /* Track */
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 20px;
+      background: #666866;
+      border-radius: 10px;
+    }
+
+    input[type=range]::-moz-range-track {
+      height: 20px;
+      background: #666866;
+      border-radius: 10px;
+    }
+
+    /* Thumb */
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 40px;
+      width: 40px;
+      background: #43853b;
+      border-radius: 50%;
+      margin-top: -10px;
+      border: 2px solid #000;
+    }
+
+    input[type=range]::-moz-range-thumb {
+      height: 40px;
+      width: 40px;
+      background: #43853b;
+      border-radius: 50%;
+      border: 2px solid #000;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Share of Renewable Energy in UAE's Total Generation Capacity (2014–2023)</h2>
+
+  <div id="chartContainer">
+    <canvas id="energyChart"></canvas>
+  </div>
+
+  <div id="sliderContainer">
+    <div id="yearLabel">2014</div>
+    <input type="range" id="yearSlider" min="1" max="10" value="1">
+  </div>
+
+  <script>
+    const years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
+    const values = [0.5, 0.5, 0.5, 1.1, 1.9, 5.8, 6.6, 8.3, 9.4, 14];
+
+    const ctx = document.getElementById('energyChart').getContext('2d');
+
+    const config = {
+      type: 'line',
+      data: {
+        labels: [years[0]],
+        datasets: [{
+          label: '% of Renewable Energy',
+          data: [values[0]],
+          fill: false,
+          borderColor: '#43853b',
+          backgroundColor: '#43853b',
+          tension: 0.3,
+          pointRadius: 5
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: '% Share'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Year'
+            }
+          }
+        }
+      }
+    };
+
+    const chart = new Chart(ctx, config);
+
+    const slider = document.getElementById('yearSlider');
+    const yearLabel = document.getElementById('yearLabel');
+
+    function updateLabel(count) {
+      if (count === 1) {
+        yearLabel.textContent = `${years[0]}`;
+      } else {
+        yearLabel.textContent = `${years[0]}–${years[count - 1]}`;
+      }
+    }
+
+    slider.addEventListener('input', () => {
+      const count = parseInt(slider.value);
+      chart.data.labels = years.slice(0, count);
+      chart.data.datasets[0].data = values.slice(0, count);
+      chart.update();
+      updateLabel(count);
+    });
+
+    updateLabel(1); // Initialize label
+  </script>
+
+</body>
+</html>
