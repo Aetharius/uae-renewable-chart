@@ -18,9 +18,9 @@
     }
 
     h2 {
-      font-weight: 700; /* Bold */
       font-size: 22px;
       max-width: 800px;
+      color: #969799; /* Title color set to #969799 */
     }
 
     #chartContainer {
@@ -80,11 +80,24 @@
       border-radius: 50%;
       border: 2px solid #000;
     }
+
+    /* Style the three parts of the title */
+    .bold-text {
+      font-weight: 700; /* Brix Slab Bold */
+    }
+
+    .medium-text {
+      font-weight: 500; /* Brix Slab Medium */
+    }
+
+    .light-text {
+      font-weight: 300; /* Brix Slab Light */
+    }
   </style>
 </head>
 <body>
 
-  <h2>Share of Renewable Energy in UAE's Total Generation Capacity, 2014–2023 (%)</h2>
+  <h2><span class="bold-text">Share of Renewable Energy in UAE's Total Generation Capacity, </span><span class="medium-text">2014–2023</span><span class="light-text"> (%)</span></h2>
 
   <div id="chartContainer">
     <canvas id="energyChart"></canvas>
@@ -130,7 +143,8 @@
               font: {
                 family: 'Signika',
                 weight: '400'
-              }
+              },
+              color: '#969799'  /* Change Y-axis text color */
             },
             title: {
               display: false
@@ -141,7 +155,8 @@
               font: {
                 family: 'Signika',
                 weight: '400'
-              }
+              },
+              color: '#969799'  /* Change X-axis text color */
             },
             title: {
               display: false
