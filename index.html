@@ -4,11 +4,21 @@
   <meta charset="UTF-8">
   <title>UAE Renewable Energy Chart</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Load Brix Slab fonts from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Brix+Slab:wght@300;500;700&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Brix Slab', sans-serif;
       padding: 20px;
       background: #fff;
+    }
+
+    h2 {
+      font-weight: 700; /* Bold */
+      font-size: 22px;
+      max-width: 800px;
     }
 
     #chartContainer {
@@ -25,9 +35,10 @@
 
     #yearLabel {
       font-size: 30px;
-      font-weight: bold;
+      font-weight: 500; /* Medium */
       color: #43853b;
       min-width: 150px;
+      font-family: 'Brix Slab', sans-serif;
     }
 
     input[type=range] {
@@ -38,7 +49,6 @@
       cursor: pointer;
     }
 
-    /* Track */
     input[type=range]::-webkit-slider-runnable-track {
       height: 20px;
       background: #666866;
@@ -51,7 +61,6 @@
       border-radius: 10px;
     }
 
-    /* Thumb */
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
       height: 40px;
@@ -73,7 +82,7 @@
 </head>
 <body>
 
-  <h2>Share of Renewable Energy in UAE's Total Generation Capacity (2014–2023)</h2>
+  <h2>Share of Renewable Energy in UAE's Total Generation Capacity, 2014–2023 (%)</h2>
 
   <div id="chartContainer">
     <canvas id="energyChart"></canvas>
@@ -107,18 +116,33 @@
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,
+            ticks: {
+              font: {
+                family: 'Brix Slab',
+                weight: '300' // Light
+              }
+            },
             title: {
-              display: true,
-              text: '% Share'
+              display: false
             }
           },
           x: {
+            ticks: {
+              font: {
+                family: 'Brix Slab',
+                weight: '500' // Medium
+              }
+            },
             title: {
-              display: true,
-              text: 'Year'
+              display: false
             }
           }
         }
@@ -146,7 +170,7 @@
       updateLabel(count);
     });
 
-    updateLabel(1); // Initialize label
+    updateLabel(1);
   </script>
 
 </body>
