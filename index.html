@@ -5,107 +5,43 @@
   <title>UAE Renewable Energy Chart</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Load Brix Slab fonts from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Brix+Slab:wght@300;500;700&display=swap" rel="stylesheet">
-  <!-- Load Signika font from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Signika:wght@400&display=swap" rel="stylesheet">
+  <!-- Load Signika font -->
+  <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;500;700&display=swap" rel="stylesheet">
 
   <style>
     body {
-      font-family: 'Brix Slab', serif;
-      padding: 20px;
+      font-family: 'Signika', sans-serif;
       background: #fff;
+      margin: 0;
+      padding: 10px;
     }
 
     h2 {
-      font-size: 22px;
-      max-width: 800px;
-      color: #969799; /* Title color set to #969799 */
+      font-size: clamp(9.5px, 1.5vw, 16px);
+      color: #969799;
+      margin-bottom: 0px;
     }
 
-    #chartContainer {
-      width: 700px;
-      height: 400px;
-      margin-bottom: 30px;
-    }
+    .bold-text { font-weight: 700; }
+    .medium-text { font-weight: 500; }
+    .light-text { font-weight: 300; }
 
-    #sliderContainer {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    #yearLabel {
-      font-size: 30px;
-      font-weight: 500; /* Medium */
-      color: #43853b;
-      min-width: 150px;
-      font-family: 'Brix Slab', serif;
-    }
-
-    input[type=range] {
-      -webkit-appearance: none;
-      width: 400px;
-      height: 20px;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    input[type=range]::-webkit-slider-runnable-track {
-      height: 20px;
-      background: #666866;
-      border-radius: 10px;
-    }
-
-    input[type=range]::-moz-range-track {
-      height: 20px;
-      background: #666866;
-      border-radius: 10px;
-    }
-
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      height: 40px;
-      width: 40px;
-      background: #43853b;
-      border-radius: 50%;
-      margin-top: -10px;
-      border: 2px solid #000;
-    }
-
-    input[type=range]::-moz-range-thumb {
-      height: 40px;
-      width: 40px;
-      background: #43853b;
-      border-radius: 50%;
-      border: 2px solid #000;
-    }
-
-    /* Style the three parts of the title */
-    .bold-text {
-      font-weight: 700; /* Brix Slab Bold */
-    }
-
-    .medium-text {
-      font-weight: 500; /* Brix Slab Medium */
-    }
-
-    .light-text {
-      font-weight: 300; /* Brix Slab Light */
+    .chart-container {
+      width: 300px;
+      height: 120px;
     }
   </style>
 </head>
 <body>
 
-  <h2><span class="bold-text">Share of Renewable Energy in UAE's Total Generation Capacity, </span><span class="medium-text">2014-2023</span><span class="light-text"> (%)</span></h2>
+  <h2>
+    <span class="bold-text">Share of renewable energy in UAE’s total generation capacity, </span>
+    <span class="medium-text">2014–2023</span>
+    <span class="light-text"> (%)</span>
+  </h2>
 
-  <div id="chartContainer">
-    <canvas id="energyChart"></canvas>
-  </div>
-
-  <div id="sliderContainer">
-    <div id="yearLabel">2014</div>
-    <input type="range" id="yearSlider" min="1" max="10" value="1">
+  <div class="chart-container">
+    <canvas id="energyChart" width="450" height="280"></canvas>
   </div>
 
   <script>
@@ -117,78 +53,67 @@
     const config = {
       type: 'line',
       data: {
-        labels: [years[0]],
+        labels: [],
         datasets: [{
-          label: '% of Renewable Energy',
-          data: [values[0]],
-          fill: false,
-          borderColor: '#43853b',
-          backgroundColor: '#43853b',
-          tension: 0.3,
-          pointRadius: 5
-        }]
+  label: '% of Renewable Energy',
+  data: [],
+  fill: true, // enable fill
+  borderColor: '#43853b',
+  backgroundColor: 'rgba(67, 133, 59, 0.25)', // 25% opacity
+  tension: 0.3,
+  pointRadius: 8
+}]
       },
       options: {
-        responsive: true,
+        responsive: false,
         maintainAspectRatio: false,
+        animation: {
+          duration: 500
+        },
         plugins: {
-          legend: {
-            display: false
-          }
+          legend: { display: false }
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              font: {
-                family: 'Signika',
-                weight: '400'
-              },
-              color: '#969799'  /* Change Y-axis text color */
-            },
-            title: {
-              display: false
-            }
-          },
-          x: {
-            ticks: {
-              font: {
-                family: 'Signika',
-                weight: '400'
-              },
-              color: '#969799'  /* Change X-axis text color */
-            },
-            title: {
-              display: false
-            }
-          }
-        }
+  y: {
+    beginAtZero: true,
+    ticks: {
+      font: {
+        family: 'Signika', 
+        weight: '300',
+        size: Math.min(16, Math.max(7.5, window.innerWidth / 100)) // Dynamically adjusts font size
+      },
+      color: '#969799'
+    }
+  },
+  x: {
+    ticks: {
+      font: {
+        family: 'Signika', 
+        weight: '300',
+        size: Math.min(16, Math.max(7.5, window.innerWidth / 100)) // Dynamically adjusts font size
+      },
+      color: '#969799'
+    }
+  }
+}
       }
     };
 
     const chart = new Chart(ctx, config);
 
-    const slider = document.getElementById('yearSlider');
-    const yearLabel = document.getElementById('yearLabel');
-
-    function updateLabel(count) {
-      if (count === 1) {
-        yearLabel.textContent = `${years[0]}`;
-      } else {
-        yearLabel.textContent = `${years[0]}-${years[count - 1]}`;
+    // Animate data addition
+    let index = 0;
+    function addNextDataPoint() {
+      if (index < years.length) {
+        chart.data.labels.push(years[index]);
+        chart.data.datasets[0].data.push(values[index]);
+        chart.update();
+        index++;
+        setTimeout(addNextDataPoint, 300); // adjust delay here
       }
     }
 
-    slider.addEventListener('input', () => {
-      const count = parseInt(slider.value);
-      chart.data.labels = years.slice(0, count);
-      chart.data.datasets[0].data = values.slice(0, count);
-      chart.update();
-      updateLabel(count);
-    });
-
-    updateLabel(1);
+    addNextDataPoint();
   </script>
-
 </body>
 </html>
