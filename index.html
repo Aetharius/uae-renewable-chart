@@ -13,22 +13,23 @@
       font-family: 'Signika', sans-serif;
       background: #fff;
       margin: 0;
-      padding: 5px;
+      padding: 0px;
     }
 
     h2 {
       font-size: clamp(9.5px, 1.5vw, 16px);
       color: #575756;
       margin-bottom: 0px;
+margin-top: 0px;
     }
 
-    .bold-text { font-weight: 550; }
-    .medium-text { font-weight: 400; }
-    .light-text { font-weight: 200; }
+    .bold-text { font-weight: 500; }
+    .medium-text { font-weight: 350; }
+    .light-text { font-weight: 180; }
 
     .chart-container {
-      width: 260px;
-      height: 175px;
+      width: 230px;
+      height: 160px;
     }
   </style>
 </head>
@@ -41,7 +42,7 @@
   </h2>
 
   <div class="chart-container">
-    <canvas id="energyChart" width="260" height="175"></canvas>
+    <canvas id="energyChart" width="230" height="160"></canvas>
   </div>
 
   <script>
